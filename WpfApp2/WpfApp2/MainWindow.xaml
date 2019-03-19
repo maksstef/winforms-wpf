@@ -1,0 +1,54 @@
+﻿<Window x:Class="WpfApp2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp2"
+        xmlns:control = "clr-namespace:WpfApp2" 
+        mc:Ignorable="d"
+        Title="MainWindow" Height="250" Width="450">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Style.Setters>
+                <Setter Property="Background" Value="Yellow"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </Style.Setters>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsMouseOver" Value="True"/>
+                        <Condition Property="IsPressed" Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="Foreground" Value="Yellow"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+
+                <EventTrigger RoutedEvent="Click">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Width" Duration="0:0:1" To="220" AutoReverse="True" />
+                                <DoubleAnimation Storyboard.TargetProperty="Height" Duration="0:0:1" To="80" AutoReverse="True" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+
+                <DataTrigger Binding="{Binding ElementName=checkBox1, Path=IsChecked}"
+                        Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <StackPanel>
+        <control:UserControl1/>
+        <CheckBox x:Name="checkBox1" Content="Disable" />
+        <Button Content="btn1" Height="150" Width="248" RenderTransformOrigin="-2.046,-0.402" Margin="0,0,96.2,0" HorizontalAlignment="Right"/>
+
+    </StackPanel>
+</Window>
